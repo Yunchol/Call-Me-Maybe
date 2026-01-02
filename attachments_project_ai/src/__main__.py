@@ -1,15 +1,21 @@
-from src.llm_wrapper import get_logits, load_vocab
+from src.constrained import apply_constraints
 
 
 def main():
-    #「入力が [1, 2, 3] のとき、次に来そうなトークンは何だろう？」
-    logits = get_logits([1, 2, 3])
-    print("logits length:", len(logits))
-    print("first 5 logits:", logits[:5])
+    # 仮の logits（トークン5個の世界）
+    logits = [2.0, 5.0, 1.0, 4.0, 3.0]
 
-    vocab = load_vocab()
-    print("token 0:", vocab.get("hello"))
-    print("token 1:", vocab.get("1"))
+    # 出していいトークンID
+    allowed = {0, 2}
+
+    masked = apply_constraints(logits, allowed)
+
+    print("original logits :", logits)
+    print("masked logits   :", masked)
+
+    # 実際に選ばれるトークン（最大値）
+    chosen_token = max(range(len(masked)), key=lambda i: masked[i])
+    print("chosen token id:", chosen_token)
 
 
 if __name__ == "__main__":
