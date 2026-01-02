@@ -1,20 +1,20 @@
 from pathlib import Path
-from src.parser import load_function_calling_tests, load_function_definitions
+from src.parser import load_function_definitions
 
 
 def main():
     base_dir = Path("data/exercise_input")
-
-    tests = load_function_calling_tests(base_dir)
     functions = load_function_definitions(base_dir)
 
-    if tests is None or functions is None:
-        print("[FATAL] 入力ファイルの読み込みに失敗しました")
+    if functions is None:
+        print("[FATAL] 読み込み失敗")
         return
 
-    print("[OK] 入力ファイルを読み込みました")
-    print(f"tests type: {type(tests)}")
-    print(f"functions type: {type(functions)}")
+    f = functions[0]
+    print("fn_name:", f.fn_name)
+    print("args_names:", f.args_names)
+    print("args_types:", f.args_types)
+    print("return_type:", f.return_type)
 
 
 if __name__ == "__main__":
