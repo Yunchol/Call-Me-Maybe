@@ -1,3 +1,6 @@
+uv run python -m src
+
+
 # 全体ロードマップ（Step 0〜12）
 
 ## Step 0: ゴールの再確認
