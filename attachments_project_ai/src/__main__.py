@@ -1,14 +1,11 @@
-from pathlib import Path
-from src.parser import load_function_definitions
-from src.schema_rules import allowed_fn_names, allowed_args_keys
+from src.pipeline import run_step11
 
 
 def main():
-    functions = load_function_definitions(Path("data/exercise_input"))
+    prompt = "add 2 and 5"
+    result = run_step11(prompt)
 
-    print("allowed fn_name:", allowed_fn_names(functions))
-    print("args for fn_add_numbers:",
-          allowed_args_keys(functions, "fn_add_numbers"))
+    print(result.model_dump_json(indent=2))
 
 
 if __name__ == "__main__":
