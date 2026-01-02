@@ -1,32 +1,14 @@
-from src.json_state import JSONState
-from src.json_rules import allowed_strings
-from src.json_fsm import next_state
+from pathlib import Path
+from src.parser import load_function_definitions
+from src.schema_rules import allowed_fn_names, allowed_args_keys
 
 
 def main():
-    state = JSONState.START
-    output = []
+    functions = load_function_definitions(Path("data/exercise_input"))
 
-    print("=== Step9: JSON State Machine Test ===")
-
-    while state != JSONState.END:
-        allowed = allowed_strings(state)
-
-        print(f"state: {state}")
-        print(f"allowed: {allowed}")
-
-        if not allowed:
-            print("no allowed output, stop")
-            break
-
-        # 今は「必ず最初の候補を出す」だけ
-        token = allowed[0]
-        output.append(token)
-
-        state = next_state(state)
-
-    print("\nresult:")
-    print("".join(output))
+    print("allowed fn_name:", allowed_fn_names(functions))
+    print("args for fn_add_numbers:",
+          allowed_args_keys(functions, "fn_add_numbers"))
 
 
 if __name__ == "__main__":
